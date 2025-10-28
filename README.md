@@ -1,4 +1,9 @@
 ## RPI Common setup
+### Install common pakages
+```
+sudo apt install vim npm nmap tailscale python3-venv curl tree screen python3-pip
+sudo tailscale up
+```
 
 ### Wireless connectivity issues
  **Enabling auto-reconnect**
