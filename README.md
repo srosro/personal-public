@@ -1,7 +1,42 @@
 ## RPI Common setup
 
 ### Wireless connectivity issues
- Problem
+ **Enabling auto-reconnect**
+ 
+  1. Enable Infinite Auto-Reconnect Retries
+
+  By default, NetworkManager gives up after 4 connection attempts. Configure infinite retries so the Pi continuously tries to reconnect after network outages.
+
+  Edit /etc/NetworkManager/NetworkManager.conf:
+  [main]
+  plugins=ifupdown,keyfile
+  autoconnect-retries-default=0
+
+  [ifupdown]
+  managed=false
+
+  Apply changes:
+  sudo systemctl reload NetworkManager
+
+  2. Configure Primary and Fallback WiFi Networks
+
+  Set up two WiFi networks with different priorities for automatic failover:
+
+  Add primary network (higher priority):
+  sudo nmcli connection add type wifi con-name "Practice Patience" \
+    ifname wlan0 ssid "Practice Patience" \
+    wifi-sec.key-mgmt wpa-psk wifi-sec.psk "YOUR_PASSWORD" \
+    connection.autoconnect yes connection.autoconnect-priority 10
+
+  Set fallback network (lower priority):
+  sudo nmcli connection modify "Practice Community" connection.autoconnect-priority 5
+
+  Verify configuration:
+  nmcli -f NAME,TYPE,AUTOCONNECT,AUTOCONNECT-PRIORITY connection show
+
+  NetworkManager will prefer the higher priority network and automatically fall back when unavailable.
+ 
+ **Buggy Driver**
 
   - RTL8188EUS USB WiFi adapter disconnected due to weak signal/beacon loss
   - The mainline rtl8xxxu driver failed to recover and couldn't scan for networks
