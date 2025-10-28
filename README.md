@@ -1,4 +1,10 @@
 ## RPI Common setup
+### Nightly restarts
+Add a cron job to root's crontab that runs /sbin/reboot at a specific time each night (commonly 3 AM or 4 AM when the system is typically idle).
+```
+0 3 * * * /sbin/reboot
+```
+
 ### Persistent Journaling
 ```
 odio@rpi2love:~ $ ls -la /var/log/journal/
