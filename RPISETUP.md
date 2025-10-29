@@ -53,7 +53,7 @@ sudo reboot
 
 ```bash
 # Connect to WiFi
-sudo nmcli device wifi connect "Practice Patience" password "YOUR_PASSWORD"
+sudo nmcli device wifi connect "SSID Patience" password "YOUR_PASSWORD"
 
 # Configure unlimited auto-reconnect attempts
 sudo nmcli connection modify "preconfigured" connection.autoconnect-retries 0
@@ -71,8 +71,8 @@ Configure a secondary WiFi network for automatic failover:
 
 ```bash
 # Add fallback network with lower priority
-sudo nmcli connection add type wifi con-name "Practice Community" \
-  ifname wlan0 ssid "Practice Community" \
+sudo nmcli connection add type wifi con-name "SSID Community" \
+  ifname wlan0 ssid "SSID Community" \
   wifi-sec.key-mgmt wpa-psk wifi-sec.psk "FALLBACK_PASSWORD" \
   connection.autoconnect yes connection.autoconnect-priority 5
 ```
@@ -371,18 +371,6 @@ sudo systemctl restart tailscaled
 - `/etc/systemd/journald.conf.d/99-persistent.conf` - Persistent logging
 - `/etc/hostname` - Device hostname
 - `/boot/firmware/cmdline.txt` - USB autosuspend settings
-
----
-
-## Current Configuration Summary
-
-**This Device (rpi4kiosk):**
-- **Hostname:** rpi4kiosk
-- **WiFi:** "Practice Patience" (unlimited retries, power save disabled)
-- **Kiosk URL:** https://player.yodeck.com/
-- **Tailscale IP:** 100.77.68.25
-- **Nightly Reboot:** 3:00 AM daily
-- **Persistent Logs:** /var/log/journal/ (100MB max, 1 month retention)
 
 ---
 
